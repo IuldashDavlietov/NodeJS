@@ -1,0 +1,15 @@
+--? 1. List the customer's first and last name with the highest invoice amount
+--? 2. List the country with the most invoices issued and the total number of invoices
+--? 3. List the name and price of the most expensive track
+--? 4. Find the number of invoices with a total greater than 10
+--? 5. List the number of customers and city name in each city (excluding cities with no customers)
+--? 6. List the name and duration (in milliseconds) of the longest track
+--? 7. Find the number of tracks in the 'Rock' genre
+--? 8. Find the total amount of invoices whose total is above the average
+--? 9. List the number of tracks in each album and the album name (top 5 albums with the most tracks)
+--? 10. Find the number of customers without an email address
+--? 11. List how many employees there are in each country
+--? 12. List the name and duration of the shortest track written by the composer 'AC/DC'
+--? 13. Find the average amount of invoices with totals between 5 and 10
+--? 14. List the number of tracks for each media type and the media type name
+--? 15. Find the total invoice amount for customers in 'Canada'
