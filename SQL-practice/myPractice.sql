@@ -110,3 +110,5 @@ SELECT SUM(i.Total) AS TotalInvoiceAmount
 FROM Invoice i
 JOIN Customer c ON i.CustomerId = c.CustomerId
 WHERE c.Country = 'Canada';
+
+
