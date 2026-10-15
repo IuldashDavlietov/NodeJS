@@ -38,7 +38,7 @@
 
 import { BankAccount } from './accounts/BankAccount.entity.js';
 
-// Исполняемая часть для тестов
+
 const myAccount = new BankAccount("DE123456789", 100);
 
 myAccount.withdraw(150); 
