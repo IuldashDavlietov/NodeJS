@@ -112,3 +112,127 @@ JOIN Customer c ON i.CustomerId = c.CustomerId
 WHERE c.Country = 'Canada';
 
 
+
+
+
+SELECT Name, Composer
+From Track;
+
+SELECT *
+FROM Track;
+
+
+SELECT DISTINCT Composer 
+FROM Track;
+
+
+SELECT DISTINCT Album_id, MediaType_id
+FROM Track;
+
+SELECT Name, Track_id
+FROM Track
+WHERE Composer = 'Jorge Ben';
+
+
+SELECT *
+FROM Invoice
+WHERE Total > 25;
+
+
+SELECT *
+FROM Invoice
+WHERE Total < 15
+LIMIT 5;
+
+
+SELECT *
+FROM Invoice
+WHERE Total > 10
+ORDER BY Total DESC
+LIMIT 2;
+
+SELECT *
+ FROM Invoice
+ WHERE BillingCountry IS NOT 'Canada'
+ ORDER BY Total ASC
+ LIMIT 10;
+
+
+SELECT Invoice_id, customer_id, total
+FROM Invoice
+ORDER BY Customer_id Asc, Total DESC; 
+
+SELECT Name
+FROM Track
+WHERE Name LIKE 'B%S';
+
+SELECT MAX (InvoiceDate)
+FROM Invoice
+WHERE InvoiceDate BETWEEN '2008-01-01' AND '2012-01-01';
+
+
+SELECT Customer.FirstName, Customer.LastName
+FROM Customer
+JOIN Invoice as Inv ON Customer.customer_id = Inv.Customer_id
+WHERE Inv.BillingCountry IN ('Norway', 'Belgium');
+
+SELECT DISTINCT c.FirstName, c.LastName
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+WHERE i.BillingCountry IN ('Norway', 'Belgium');
+
+
+SELECT Name
+From Track
+WHERE Composer LIKE '%Zappa%';
+
+SELECT COUNT(*) AS TotalTrack
+FROM Track;
+
+SELECT COUNT(*) AS TotalInvoices
+FROM Invoice;
+
+SELECT COUNT( DISTINCT Composer) AS TotalComposer
+FROM Track;
+
+SELECT album_id, COUNT(*) AS TrackCount
+FROM Track
+GROUP BY Album_id
+ORDER BY TrackCount DESC;
+
+SELECT Name, Milliseconds
+FROM Track
+ORDER BY Milliseconds ASC
+LIMIT 1;
+
+SELECT Name, MAX(Milliseconds)
+FROM Track;
+
+SELECT * 
+FROM Track
+WHERE Milliseconds < (SELECT AVG(Milliseconds) FROM Track);
+
+SELECT Composer, COUNT(*) AS TrackCount
+FROM Track
+GROUP BY Composer;
+
+SELECT DISTINCT t.Name, g.Name
+FROM Track as t
+JOIN Genre g ON t.Genre_id = g.Genre_id;
+
+SELECT DISTINCT ar.Name, al.Title
+FROM Artist AS ar
+JOIN Album AS al ON ar.Artist_id = al.Artist_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
