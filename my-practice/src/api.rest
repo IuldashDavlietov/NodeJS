@@ -1,0 +1,9 @@
+get http://localhost:8000/api/account/
+### 
+
+post http://localhost:8000/api/account/withdraw
+Content-Type: application/json
+
+{
+    "amount": 500
+}
