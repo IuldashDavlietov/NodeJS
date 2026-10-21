@@ -1,0 +1,7 @@
+post http://localhost:8000/
+
+###
+get http://localhost:8000/
+
+###
+put http://localhost:8000/
