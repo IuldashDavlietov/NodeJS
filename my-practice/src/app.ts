@@ -15,7 +15,7 @@ app.use((req: Request, res: Response) => {
     return res.status(404).json({
         error: `Route ${req.method} ${req.url} not found`
     })
-})
+});
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => console.log(`Running at: http://127.0.0.1:8000`))
