@@ -9,6 +9,8 @@ const routes = [
     { path: '/cards', router: bankCardRouter }
 ]
 
+
+
 routes.forEach(({ path, router }) => {
     apiRouter.use(path, router)
 })

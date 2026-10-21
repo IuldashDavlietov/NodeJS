@@ -11,7 +11,7 @@ bankCardRouter.get('/', (req: Request, res: Response) => {
     return res.status(200).json({
         cardNumber: myCard.cardNumber,
         holdername: myCard.holderName,
-        status: myCard.getIsBlocked()
+        isBlocked: myCard.getIsBlocked()
     })
 })
     .post('/verify-pin', validatePin, (req: Request, res: Response) => {
