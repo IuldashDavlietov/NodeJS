@@ -5,8 +5,17 @@ post http://localhost:8000/api/account/withdraw
 Content-Type: application/json
 
 {
-    "amount": 300
+    "amount": 200
 }
+###
+
+post http://localhost:8000/api/account/deposit
+Content-Type: application/json
+
+{
+    "amount": 500
+}
+
 ###
 
 GET http://localhost:8000/api/cards

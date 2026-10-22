@@ -1,28 +1,25 @@
 export class BankAccount {
-  accountNumber: string;
-  private balance: number;
 
-  constructor(accountNumber: string, balance: number) {
-    this.accountNumber = accountNumber;
-    this.balance = balance;
-  }
+  constructor(
+    public readonly accountNumber: string,
+    private balance: number
+  ) { }
 
   deposit(amount: number): void {
-    if (amount > 0) {
-      this.balance += amount;
-      console.log(`Deposit of: ${amount}. New balance: ${this.balance}`);
-    } else {
-      console.log("Deposit amount must be greater than 0.");
+    if (amount <= 0) {
+      throw new Error("Deposit amount must be greater than 0");
     }
+    this.balance += amount;
   }
 
   withdraw(amount: number): void {
-    if (this.balance > 0 && this.balance >= amount) {
-      this.balance -= amount;
-      console.log(`Withdrew ${amount} €. Remaining balance: ${this.balance} €`);
-    } else {
-      console.log("Insufficient funds or invalid amount!");
+    if (amount <= 0) {
+      throw new Error("Withdrawal amount must be greater than 0");
     }
+    if (amount > this.balance) {
+      throw new Error("Insufficient funds");
+    }
+    this.balance -= amount;
   }
 
   getBalance(): number {
