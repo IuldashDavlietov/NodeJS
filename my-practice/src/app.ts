@@ -1,5 +1,4 @@
 import express, { type Express } from 'express';
-import { bankAccountRouter } from './accounts/BankAccount.router.js';
 import { loggerMiddleware } from './shared/middleware/logger.middleware.js';
 import type { Request, Response } from 'express';
 import { apiRouter } from './api.router.js';

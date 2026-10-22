@@ -1,0 +1,36 @@
+GET http://localhost:8000/
+
+###
+GET http://localhost:8000/users/123a
+
+###
+GET  http://localhost:8000/async
+
+### 
+post  http://localhost:8000/asdf?how=areyou
+mynameis:lee
+Content-Type: application/json
+
+{
+    "niceto": "meetyou"
+}
+
+### 
+post  http://localhost:8000/form
+Content-Type: application/x-www-form-urlencoded
+
+name=Ada&level=beginners
+
+
+###
+post  http://localhost:8000/text
+Content-Type: text/plain
+
+hello from a plain text request
+
+
+###
+post  http://localhost:8000/raw
+Content-Type: application/octet-stream
+
+hello from a plain text request

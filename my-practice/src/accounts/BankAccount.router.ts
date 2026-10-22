@@ -7,8 +7,6 @@ import type { Request, Response } from "express";
 export const bankAccountRouter: Router = Router();
 const myAccount = new BankAccount('DE1234567890', 1500);
 
-
-
 bankAccountRouter.get('/', (req: Request, res: Response) => {
     return res.status(200).json({
         accountNumber: myAccount.accountNumber,
@@ -31,7 +29,7 @@ bankAccountRouter.get('/', (req: Request, res: Response) => {
             })
         }
     })
-    
+
     .post('/withdraw', validateAmount, (req: Request, res: Response) => {
         try {
             const { amount } = req.body
