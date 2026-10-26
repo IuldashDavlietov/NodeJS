@@ -7,7 +7,7 @@ sequelize.authenticate()
 
 const Todo = sequelize.define('todos', {
     title: {
-        type: DataTypes.STRING(256), // varchar(250),
+        type: DataTypes.STRING(256), 
         allowNull: false
     },
     description: DataTypes.TEXT,
@@ -22,6 +22,6 @@ const Todo = sequelize.define('todos', {
         defaultValue: false
     },
 });
-sequelize.sync();
+// sequelize.sync();
 
 module.exports = Todo;

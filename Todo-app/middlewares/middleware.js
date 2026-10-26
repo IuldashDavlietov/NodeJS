@@ -9,16 +9,6 @@ const Todo = require('../modules/todo');
             message: 'Incorrect Id'
         })
     }
-
-    const todo = await Todo.findByPk(id);
-    if (!todo) {
-        return res.status(404).send({
-            success: false,
-            message: 'Todo not found'
-        })
-    }
-    req.todo = todo;
     next()
 }
-
 module.exports = checkTodoID;

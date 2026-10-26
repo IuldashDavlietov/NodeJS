@@ -10,13 +10,9 @@ const PORT = process.env.PORT;
 const Todo = require('./modules/todo'); 
 const checkTodoId = require('./middlewares/middleware');
 
-/* ------------------------------------------ */
-//* MIDDLEWARES:
-// Parsed JSON body
 app.use(express.json());
 
-/* ------------------------------------------ */
-//* ROUTES
+
 
 // HOME PATH
 app.get('/', (req, res) => {
@@ -54,7 +50,7 @@ app.get('/todos/:id', checkTodoId, async (req, res) => {
 
 // UPDATE TODO:
 app.put('/todos/:id', checkTodoId, async (req, res) => {
-    const result = await req.todo.update(req.body);
+    const result = await Todo.update(req.body);
 
     res.status(200).send({
         success: true, 
@@ -64,7 +60,7 @@ app.put('/todos/:id', checkTodoId, async (req, res) => {
 
 // DELETE Todo:
 app.delete('/todos/:id', checkTodoId, async (req, res) => {
-    await req.todo.destroy();
+    await Todo.destroy({where: {id: req.params.id}});
     
     res.status(200).send({
         success: true,
@@ -72,9 +68,7 @@ app.delete('/todos/:id', checkTodoId, async (req, res) => {
     });
 });
 
-/* ------------------------------------------ */
 //* ERROR HANDLER
-
 const errorHandler = (err, req, res, next) => {
     res.status(res.errorStatusCode ?? 500).send({
         success: false,
@@ -85,6 +79,4 @@ const errorHandler = (err, req, res, next) => {
 };
 
 app.use(errorHandler);
-
-/* ------------------------------------------ */
 app.listen(PORT, () => console.log('Listening on port:', PORT));
