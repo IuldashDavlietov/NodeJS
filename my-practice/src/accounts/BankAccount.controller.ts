@@ -1,7 +1,4 @@
-// accounts/BankAccount.controller.ts
-
 import { BankAccountService } from './BankAccount.service.js';
-
 export class BankAccountController {
   constructor(private accountService: BankAccountService) {}
 

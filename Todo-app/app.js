@@ -7,8 +7,9 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 
 
-const Todo = require('./modules/todo'); 
+const Todo = require('./modules/todo');
 const checkTodoId = require('./middlewares/middleware');
+const { where } = require('sequelize');
 
 app.use(express.json());
 
@@ -33,7 +34,7 @@ app.get('/todos', async (req, res) => {
 
 // CREATE TODO:
 app.post('/todos', async (req, res) => {
-    const result = await Todo.create(req.body); 
+    const result = await Todo.create(req.body);
     res.status(201).send({
         success: true,
         result
@@ -44,28 +45,38 @@ app.post('/todos', async (req, res) => {
 app.get('/todos/:id', checkTodoId, async (req, res) => {
     res.status(200).send({
         success: true,
-        result: req.todo 
+        result: req.todo
     });
 });
 
 // UPDATE TODO:
-app.put('/todos/:id', checkTodoId, async (req, res) => {
-    const result = await Todo.update(req.body);
+app.put('/todos/:id', async (req, res) => {
+    const result = await Todo.update(req.body, { where: { id: req.params.id } });
+
+    if (!result[0]) {
+        res.errorStatusCode = 400;
+        throw new Error('Data is not updated. Someting went wrong.');
+    }
 
     res.status(200).send({
-        success: true, 
+        success: true,
         result
     });
 });
 
 // DELETE Todo:
-app.delete('/todos/:id', checkTodoId, async (req, res) => {
-    await Todo.destroy({where: {id: req.params.id}});
-    
-    res.status(200).send({
-        success: true,
-        message: "Deleted"
-    });
+app.delete('/todos/:id', async (req, res) => {
+    const result = await Todo.destroy({ where: { id: req.params.id } });
+
+    if(!result){
+        res.errorStatusCode = 400;
+        throw new Error('Data is not deleted. Something went wrong.');
+    }
+    res.sendStatus(204);
+});
+
+app.all('/*splat', (req, res)=>{
+    throw new Error('Route is not found.');
 });
 
 //* ERROR HANDLER

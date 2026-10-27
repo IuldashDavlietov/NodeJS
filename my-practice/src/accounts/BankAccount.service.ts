@@ -1,7 +1,4 @@
-// accounts/BankAccount.service.ts
-
 import { BankAccount } from './BankAccount.entity.js';
-
 export class BankAccountService {
   private accounts: BankAccount[] = [];
 
