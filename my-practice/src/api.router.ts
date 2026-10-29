@@ -6,7 +6,7 @@ import { loansRouter } from "./loans/Loans.router.js";
 export const apiRouter: Router = Router();
 
 const routes = [
-    { path: '/account', router: bankAccountRouter },
+    { path: '/accounts', router: bankAccountRouter },
     { path: '/cards', router: bankCardRouter },
     {path: '/loans', router: loansRouter}
 ]
