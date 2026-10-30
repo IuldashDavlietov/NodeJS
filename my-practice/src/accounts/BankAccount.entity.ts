@@ -27,6 +27,7 @@ export class BankAccount {
 
   withdraw(amount: number): void {
     if (amount <= 0) {
+      
       throw new InvalidAmountError()
     }
     if (amount > this.balance) {
