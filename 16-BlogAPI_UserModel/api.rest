@@ -1,0 +1,123 @@
+@baseUrl = http://localhost:8000
+
+# @name home
+GET {{baseUrl}}
+
+
+##############################
+       ### CATEGORY ###
+##############################
+
+# @name category_list
+GET {{baseUrl}}/categories
+
+###
+
+# @name category_read
+GET {{baseUrl}}/categories/6ae36b8185c36832ecb55493
+
+###
+
+# @name category_create
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+    "name":"category 4"
+}
+
+###
+
+# @name category_update
+PUT {{baseUrl}}/categories/6ae36b8185c36832ecb55493
+Content-Type: application/json
+
+{
+    "name": "categories 1 of them "
+}
+
+###
+
+# @name category_delete
+DELETE {{baseUrl}}/categories/6ae36c3265769721fc2c15dc
+
+##############################
+        ### POST ###
+##############################
+
+
+# @name post_list
+GET {{baseUrl}}/posts
+
+###
+
+# @name post_read
+GET {{baseUrl}}/posts/6ae467e20e4f9b93f09cd61c
+
+###
+
+# @name post_create
+POST {{baseUrl}}/posts
+Content-Type: application/json
+
+{
+    "categoryId":"6ae467d60e4f9b93f09cd61b",
+    "userId":"6ae475c68730a59170a587a3",
+    "title":"title 6",
+    "content":"content 6"
+}
+
+###
+
+# @name post_update
+PUT {{baseUrl}}/posts/6ae467e20e4f9b93f09cd61c
+Content-Type: application/json
+
+{
+    "title": "posts title updated "
+}
+
+###
+
+# @name post_delete
+DELETE {{baseUrl}}/posts/6ae467e20e4f9b93f09cd61c
+
+##############################
+        ### USER ###
+##############################
+
+# @name user_list
+GET {{baseUrl}}/users
+
+###
+
+# @name user_read
+GET {{baseUrl}}/users/6ae467e20e4f9b93f09cd61c
+
+###
+
+# @name user_create
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "firstName":"first man",
+    "lastName":"last man",
+    "email":"email6@gmail.com",
+    "password":"pass man"
+}
+
+###
+
+# @name user_update
+PUT {{baseUrl}}/users/6ae467e20e4f9b93f09cd61c
+Content-Type: application/json
+
+{
+    "firstName": "users title updated "
+}
+
+###
+
+# @name user_delete
+DELETE {{baseUrl}}/users/6ae467e20e4f9b93f09cd61c
