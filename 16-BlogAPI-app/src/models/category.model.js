@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-
     // _id 
 
     name: {
@@ -11,12 +10,10 @@ const categorySchema = new mongoose.Schema({
         trim: true,
         required: true
     }
-
 }, { collection: 'categories' });
 
 
 const Category = mongoose.model('Category', categorySchema);
-
 module.exports = Category;
 
 /* ------------------------------------------------- *

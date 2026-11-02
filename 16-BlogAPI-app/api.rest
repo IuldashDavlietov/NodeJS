@@ -62,7 +62,6 @@ Content-Type: application/json
 
 {
     "categoryId":"6ae467d60e4f9b93f09cd61b",
-    "userId":"6ae475c68730a59170a587a3",
     "title":"title 6",
     "content":"content 6"
 }
@@ -103,8 +102,8 @@ Content-Type: application/json
 {
     "firstName":"first man",
     "lastName":"last man",
-    "email":"email6@gmail.com",
-    "password":"pass man"
+    "email":"email2@gmail.com",
+    "password":"pass man2"
 }
 
 ###
@@ -121,3 +120,22 @@ Content-Type: application/json
 
 # @name user_delete
 DELETE {{baseUrl}}/users/6ae467e20e4f9b93f09cd61c
+
+##############################
+        ### AUTH ###
+##############################
+
+
+# @name login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email":"email2@gmail.com",
+    "password":"pass man2"
+}
+
+###
+
+# @name logout
+POST {{baseUrl}}/users/logout   

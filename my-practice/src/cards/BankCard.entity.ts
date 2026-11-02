@@ -17,6 +17,7 @@ export class BankCard {
         public readonly holderName: string,
         private pinCard: string
     ) { }
+    
     public block(): void {
         this.isBlocked = true
     }

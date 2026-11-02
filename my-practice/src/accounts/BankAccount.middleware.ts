@@ -26,5 +26,4 @@ export function findAccount(req: Request, res: Response, next: NextFunction) {
     }
     res.locals.account = account
     next()
-
 }
