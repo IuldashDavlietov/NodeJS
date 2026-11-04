@@ -45,9 +45,8 @@ DELETE {{baseUrl}}/categories/6ae36c3265769721fc2c15dc
         ### POST ###
 ##############################
 
-
 # @name post_list
-GET {{baseUrl}}/posts
+GET {{baseUrl}}/posts?filter[isPublished]=false&page=2
 
 ###
 

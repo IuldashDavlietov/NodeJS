@@ -6,7 +6,9 @@ const Category = require('../models/category.model');
 module.exports = {
     list: async (req, res) => {
 
-        const result = await Category.find();
+        // const result = await Category.find();
+
+        const result = await res.getModelList(Category);
 
         res.status(200).send({
             success: true,

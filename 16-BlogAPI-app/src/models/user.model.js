@@ -2,8 +2,13 @@
 
 const mongoose = require('mongoose');
 
+// Password Encyrption
+const { passwordEncrypte } = require('../utils');
+
 const userSchema = mongoose.Schema({
+
     firstName: String,
+
     lastName: String,
 
     email: {
@@ -12,7 +17,9 @@ const userSchema = mongoose.Schema({
         required: true,
         // unique: true,
         unique: [true, 'This email address is already in use.'],
+
         // validate: () => false // if validate retunr false it raises a validation error.
+
         // validate: [
         //     (email) => {
         //         if (email.includes('@') && email.includes('.')) {
@@ -22,18 +29,25 @@ const userSchema = mongoose.Schema({
         //     },
         //     'Please enter a valid email address.'
         // ]
+
         match: [/.+@.+\..+/, 'Please enter a valid email address.']
     },
+
     password: {
         type: String,
         trim: true,
         required: true,
-        set: (pass) => 'ondia' // whatwver set method returns, it will be saved to DB.
+
+        // set: (pass) => 'ondia' // whatever set method returns, it will be saved to DB.
+        // set: (pass) => passwordEncrypte(pass) 
+        set: passwordEncrypte
     }
+
 }, {
     collection: 'users',
     timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;

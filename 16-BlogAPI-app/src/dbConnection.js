@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Post = require('./models/post.model');
 
 const dbConnection = () => {
-    mongoose.connect('mongodb://localhost:27017/2-blogApi')
+    // mongoose.connect('mongodb://localhost:27017/2-blogApi')
+    mongoose.connect(process.env.MONGODB_URI)
         .then(() => console.log('* DB Connected *'))
         .catch((err) => console.log('! DB Not Connected !', err));
 

@@ -54,7 +54,9 @@ module.exports = {
         }
     },
     login: async (req, res) => {
+
         const { email, password } = req.body;
+
         // 1. check credentials in req.body
         if (email && password) {
 
@@ -62,8 +64,10 @@ module.exports = {
             const user = await User.findOne({ email });
 
             if (user) {
+
                 // 3. check password in db
                 if (user.password == passwordEncrypte(password)) {
+
                     // 4. set session
                     req.session = {
                         _id: user._id,
@@ -76,25 +80,31 @@ module.exports = {
                         req.session.rememberMe = true;
                         req.sessionOptions.maxAge = 3 * 24 * 60 * 60 * 1000; // 3 days
                     }
+
                     res.status(200).send({
                         success: true,
                         message: 'Login is successfull.'
                     });
+
                 } else {
                     res.errStatusCode = 404;
                     throw new Error('Wrong Email or Password.');
                 }
+
             } else {
                 res.errStatusCode = 404;
                 throw new Error('Wrong Email or Password.');
             }
+
         } else {
             res.errStatusCode = 401;
             throw new Error('Email and Password required.');
         }
-    },
 
+
+    },
     logout: async (req, res) => {
+
         req.session = null;
         res.status(200).send({
             success: true,
