@@ -34,6 +34,8 @@ app.use(cookieSession({
 app.use(require('./src/middlewares/authentication'));
 /* -------------------------------------- */
 
+app.use(require('./src/middlewares/queryHandler'))
+
 // DB Connection
 // const dbConnection = require('./src/dbConnection');
 // dbConnection();
