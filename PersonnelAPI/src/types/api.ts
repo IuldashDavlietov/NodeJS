@@ -16,9 +16,7 @@ export interface ListDetails {
   skip: number;
   limit: number;
   sort: object;
-  pages:
-    | false
-    | {
+  pages: | false | {
         previos: number | false;
         current: number;
         next: number | false;
@@ -27,7 +25,7 @@ export interface ListDetails {
 }
 
 export interface ResultResponse<T> {
-  error: false;
+  success: true;
   result: T;
 }
 
@@ -36,7 +34,7 @@ export interface ListResponse<T> extends ResultResponse<T[]> {
 }
 
 export interface MessageResponse {
-  error: false;
+  success: true;
   message: string;
 }
 

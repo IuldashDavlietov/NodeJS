@@ -2,4 +2,88 @@
 
 
 # @name home
-GET {{baseUrl}}/fewfwe
+GET {{baseUrl}}
+
+#####################
+### DEPARTMENT
+#####################
+
+# @name dep_list
+GET {{baseUrl}}/departments
+
+###
+
+# @name dep_read
+GET {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
+
+###
+
+# @name dep_create
+POST {{baseUrl}}/departments
+Content-Type: application/json
+
+{
+    "name":"department 1"
+}
+
+###
+
+# @name dep_update
+PUT {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
+Content-Type: application/json
+
+{
+    "name":"department 1 UPDATED"
+}
+
+###
+
+# @name dep_delete
+DELETE {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
+
+#####################
+### PERSONNEL
+#####################
+
+
+# @name per_list
+GET {{baseUrl}}/personnels
+
+###
+
+# @name per_read
+GET {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+
+###
+
+# @name per_create
+POST {{baseUrl}}/personnels
+Content-Type: application/json
+
+{
+    "departmentId":"6aeda2fd1ce84122ef26c6d9",
+    "username": "test1",
+    "password": "test123",
+    "firstName": "test1-first",
+    "lastName": "test1-last",
+    "phone": "12345678901",
+    "email": "test1@site.com",
+    "title": "test1-title",
+    "salary": 5000,
+    "description": "test1-desc",
+}
+
+###
+
+# @name per_update
+PUT {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+Content-Type: application/json
+
+{
+    "name":"perartment 1 UPDATED"
+}
+
+###
+
+# @name per_delete
+DELETE {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
