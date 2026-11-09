@@ -1,29 +1,77 @@
 @baseUrl = http://127.0.0.1:8000
-
+@adminToken = Token {{Adminlogin.response.body.token}}
+@leadToken = Token {{Leadlogin.response.body.token}}
+@userToken = Token {{login.response.body.token}}
 
 # @name home
 GET {{baseUrl}}
 
 #####################
-### DEPARTMENT
+### AUTH 
+#####################
+
+# @name Adminlogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin-fullstack",
+    "password": "1234"
+}
+
+###
+
+# @name Leadlogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "lead-fullstack",
+    "password": "1234"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "testF0",
+    "password": "1234"
+}
+
+###
+
+# @name logout
+POST {{baseUrl}}/auth/logout
+Authorization: Token 50be4f594d54fde8affebefeb7fad05a033bb955cbc989c57b3bc0cf26a2be00
+
+
+
+#####################
+### DEPARTMENT 
 #####################
 
 # @name dep_list
 GET {{baseUrl}}/departments
+Authorization: {{userToken}}
 
 ###
 
 # @name dep_read
 GET {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
+Authorization: {{userToken}}
 
 ###
 
 # @name dep_create
 POST {{baseUrl}}/departments
 Content-Type: application/json
+Authorization: {{userToken}}
 
 {
-    "name":"department 1"
+    "name":"department 3"
 }
 
 ###
@@ -42,17 +90,18 @@ Content-Type: application/json
 DELETE {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
 
 #####################
-### PERSONNEL
+### PERSONNEL 
 #####################
 
 
 # @name per_list
 GET {{baseUrl}}/personnels
+Authorization: {{leadToken}}
 
 ###
 
 # @name per_read
-GET {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+GET {{baseUrl}}/personnels/6aeda41f5ce0b8f8855e2f04
 
 ###
 
@@ -61,29 +110,70 @@ POST {{baseUrl}}/personnels
 Content-Type: application/json
 
 {
-    "departmentId":"6aeda2fd1ce84122ef26c6d9",
-    "username": "test1",
-    "password": "test123",
-    "firstName": "test1-first",
-    "lastName": "test1-last",
-    "phone": "12345678901",
-    "email": "test1@site.com",
-    "title": "test1-title",
+    "departmentId":"6af1a3865cea01b22e8a8f00",
+    "username": "lead-fullstack",
+    "password": "1234",
+    "firstName": "firstname",
+    "lastName": "lastname",
+    "phone": "F1123456789",
+    "email": "lead@site.com",
+    "title": "lead-title",
     "salary": 5000,
-    "description": "test1-desc",
+    "description": "lead-desc",
+    "isLead": true
 }
 
 ###
 
 # @name per_update
-PUT {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+PUT {{baseUrl}}/personnels/6af1a435aea441faf044c950
 Content-Type: application/json
 
 {
-    "name":"perartment 1 UPDATED"
+    "isAdmin": true
 }
 
 ###
 
 # @name per_delete
 DELETE {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+
+#####################
+### TOKEN 
+#####################
+
+
+# @name token_list
+GET {{baseUrl}}/tokens
+Authorization: {{adminToken}}
+
+###
+
+# @name token_read
+GET {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1
+
+###
+
+# @name token_create
+POST {{baseUrl}}/tokens
+Content-Type: application/json
+
+{
+    "userId":"6af18b91fdc98109e3f455d0",
+    "token": "aflasdf904u32fkjdshgaduiryfsdjkgvlad"
+}
+
+###
+
+# @name token_update
+PUT {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1
+Content-Type: application/json
+
+{
+    "isActive": true
+}
+
+###
+
+# @name token_delete
+DELETE {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1

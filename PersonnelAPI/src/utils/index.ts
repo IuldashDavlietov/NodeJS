@@ -12,5 +12,14 @@ const passwordEncrypte = (password: string): string => {
     env.PASS_DIGEST,
   ).toString("hex");
 };
+class CustomError extends Error {
+    override name = "CustomError";
+    statusCode: number;
+    
+    constructor(message: string, statusCode: number){
+        super(message);
+        this.statusCode = statusCode;
+    }
+}
 
-export {passwordEncrypte};
+export {passwordEncrypte, CustomError}

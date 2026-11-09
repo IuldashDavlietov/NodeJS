@@ -4,7 +4,8 @@ import queryHandler from './src/middlewares/queryHandler';
 import cookieSession from 'cookie-session';
 import { env } from './src/configs/env';
 import errorHandler, { notFound } from './src/middlewares/errorHandler';
-import departmentRouter from './src/routes/department.route'
+import departmentRouter from './src/routes/department.route';
+import tokenRouter from './src/routes/auth.route'
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(cookieSession({
     name: 'personnel-api',
     secret: env.SECRET_KEY
 }))
+
+app.use('/tokens', tokenRouter)
 
 app.use('/departments', departmentRouter)
 

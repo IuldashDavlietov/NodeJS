@@ -41,11 +41,11 @@ const personnelSchema = new mongoose.Schema<IPersonnel>(
       required: true,
       unique: true,
     },
-    password:{
-        type: String,
-        trim: true,
-        required: true,
-        set: passwordEncrypte
+    password: {
+      type: String,
+      trim: true,
+      required: true,
+      set: passwordEncrypte
     },
     firstName: {
       type: String,
@@ -77,13 +77,17 @@ const personnelSchema = new mongoose.Schema<IPersonnel>(
       required: true,
     },
     salary: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     description: {
       type: String,
       trim: true,
       required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     isActive: {
       type: Boolean,
@@ -98,7 +102,7 @@ const personnelSchema = new mongoose.Schema<IPersonnel>(
       default: Date.now,
     },
 
-},
+  },
   { collection: "personnels", timestamps: true },
 );
 

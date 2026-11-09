@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { create, list, read, remove, update } from "../controllers/department.controller";
+import { isLogin, isAdmin } from "../middlewares/permissions";
 
 const router = Router();
 
 // URL: /departments
 
-router.route("/").get(list).post(create);
+router.route("/").get(isLogin, list).post(isAdmin, create);
 
-router.route("/:id").get(read).put(update).delete(remove);
+router.route("/:id").get(isLogin, read).put(isAdmin, update).delete(isAdmin, remove);
 
 export default router;

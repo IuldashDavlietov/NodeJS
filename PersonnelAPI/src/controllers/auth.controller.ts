@@ -1,7 +1,8 @@
 import type { RequestHandler } from "express";
 import Personnel from "../models/personnel.model";
+import Token from "../models/token.model";
 import { MessageResponse } from "../types/api";
-import { CustomError } from "../utils";
+import { CustomError, passwordEncrypte } from "../utils";
 
 interface LoginBody {
   username?: string;
@@ -10,7 +11,11 @@ interface LoginBody {
   password: string;
 }
 
-const login: RequestHandler<{}, MessageResponse, LoginBody> = async (req, res) => {
+interface LoginResponse extends MessageResponse {
+  token: string;
+}
+
+const login: RequestHandler<{}, LoginResponse, LoginBody> = async (req, res) => {
   const { username, email, password, rememberMe } = req.body;
 
   if (!(username || email) && password)
@@ -27,24 +32,30 @@ const login: RequestHandler<{}, MessageResponse, LoginBody> = async (req, res) =
   if (!user.isActive)
     throw new CustomError("Your account is not active. Please contact your administrator.", 403);
 
-  const { salary, description, phone, password: _, ...sessionData } = user;
+  // Token
 
-  // Session
-  req.session = sessionData;
+  let token = await Token.findOne({ userId: user._id });
 
-  // Cookie
-
-  if (rememberMe) req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3; // 3 days
+  if (!token) {
+    token = await Token.create({
+      userId: user._id,
+      token: passwordEncrypte(user._id.toString() + Date.now()),
+    });
+  }
 
   res.status(200).send({
     success: true,
     message: "Login is successful",
+    token: token.token,
   });
 };
 
 const logout: RequestHandler<{}, MessageResponse> = async (req, res) => {
-  // Session
-  req.session = null;
+  // Token
+
+  // console.log(req.user);
+
+  req.user && (await Token.deleteOne({ userId: req.user._id }));
 
   res.status(200).send({
     success: true,

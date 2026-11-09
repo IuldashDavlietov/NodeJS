@@ -59,4 +59,6 @@ const remove: RequestHandler<IdParams> = async (req, res) => {
   res.sendStatus(204);
 };
 
+// todo: create new controller for listing all the user for specific department.
+
 export { list, read, create, update, remove };
