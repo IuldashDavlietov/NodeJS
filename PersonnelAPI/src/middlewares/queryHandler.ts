@@ -67,9 +67,10 @@ const queryHandler: RequestHandler = (req, res, next) => {
 
   res.getModelList = async <T>(
     Model: Model<T>,
+    customFilters: QueryFilter<T> = {},
     populate?: ModelPopulate,
   ): Promise<HydratedDocument<T>[]> => {
-    const conditions: QueryFilter<T> = { ...filter, ...search };
+    const conditions: QueryFilter<T> = { ...filter, ...search, ...customFilters };
     const query = Model.find(conditions)
       .sort(sortOptions)
       .skip(skip)
@@ -78,8 +79,8 @@ const queryHandler: RequestHandler = (req, res, next) => {
     return populate ? await query.populate([populate].flat()) : await query;
   };
 
-  res.getModelListDetails = async <T>(Model: Model<T>) => {
-    const conditions: QueryFilter<T> = { ...filter, ...search };
+  res.getModelListDetails = async <T>(Model: Model<T>,  customFilters: QueryFilter<T> = {}) => {
+    const conditions: QueryFilter<T> = { ...filter, ...search, ... customFilters };
     const count = await Model.countDocuments(conditions);
     return {
       count,
@@ -93,11 +94,11 @@ const queryHandler: RequestHandler = (req, res, next) => {
         count <= limit
           ? false
           : {
-              previos: page > 1 ? page - 1 : false,
-              current: page,
-              next: page < Math.ceil(count / limit) ? page + 1 : false,
-              total: Math.ceil(count / limit),
-            },
+            previos: page > 1 ? page - 1 : false,
+            current: page,
+            next: page < Math.ceil(count / limit) ? page + 1 : false,
+            total: Math.ceil(count / limit),
+          },
     };
   };
 

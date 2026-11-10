@@ -14,3 +14,5 @@ export const CreateProductSchema = z.object({
     temperatureZone: z.enum(['DRY', 'CHILLED', 'FROZEN']),
     description: z.string().optional()
 })
+
+export type CreateProductInput = z.infer<typeof CreateProductSchema>;

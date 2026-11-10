@@ -29,6 +29,10 @@ export interface ResultResponse<T> {
   result: T;
 }
 
+export interface DepartmentPersonnelResponse<T> extends ResultResponse<T[]>{
+details: ListDetails
+}
+
 export interface ListResponse<T> extends ResultResponse<T[]> {
   details: ListDetails;
 }
@@ -43,3 +47,4 @@ export interface ErrorResponse {
   message: string;
   cause?: unknown;
 }
+

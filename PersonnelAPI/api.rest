@@ -59,6 +59,11 @@ Authorization: {{userToken}}
 
 ###
 
+# @name dep_listByPersonnel
+GET {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e/personnels
+
+###
+
 # @name dep_read
 GET {{baseUrl}}/departments/6aed96a1455dde3ab5b7313e
 Authorization: {{userToken}}

@@ -1,4 +1,4 @@
-import type { HydratedDocument, Model } from "mongoose";
+import type { HydratedDocument, Model, QueryFilter } from "mongoose";
 import type { ListDetails, ModelPopulate } from "./api";
 import { PersonnelDocument } from "../models/personnel.model";
 
@@ -10,8 +10,10 @@ declare global {
     }
 
     interface Response {
-      getModelList<T>(Model: Model<T>, populate?: ModelPopulate): Promise<HydratedDocument<T>[]>;
-      getModelListDetails<T>(Model: Model<T>): Promise<ListDetails>;
+      getModelList<T>(Model: Model<T>, 
+        custumFilters?: QueryFilter,
+        populate?: ModelPopulate): Promise<HydratedDocument<T>[]>;
+      getModelListDetails<T>(Model: Model<T>, custumFilters?: QueryFilter): Promise<ListDetails>;
     }
   }
 }

@@ -1,7 +1,9 @@
 import { RequestHandler } from "express";
 import Department, { DepartmentBody, DepartmentDocument } from "../models/department.model";
-import { IdParams, ListResponse, ResultResponse } from "../types/api";
+import { IdParams, ListResponse, ResultResponse, DepartmentPersonnelResponse } from "../types/api";
 import { CustomError } from "../utils";
+import Personnel, { PersonnelDocument } from "../models/personnel.model";
+
 
 // RequestHandler<Params, responseBody, RequestBody>
 
@@ -61,4 +63,17 @@ const remove: RequestHandler<IdParams> = async (req, res) => {
 
 // todo: create new controller for listing all the user for specific department.
 
-export { list, read, create, update, remove };
+const personnels: RequestHandler<IdParams, DepartmentPersonnelResponse<PersonnelDocument>> = async (
+  req,
+  res,
+) => {
+  const result = await res.getModelList(Personnel, { departmentId: req.params.id });
+
+  res.status(200).send({
+    success: true,
+    details: await res.getModelListDetails(Personnel, { departmentId: req.params.id }),
+    result,
+  });
+};
+
+export { list, read, create, update, remove, personnels };

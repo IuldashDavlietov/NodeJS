@@ -6,9 +6,9 @@ const router = Router();
 
 // URL: /personnels
 
-router.route("/").get(isAdminOrLead, list).post(create);
+router.route("/").get(isAdminOrLead, list).post(isAdminOrLead, create);
 
 // todo: check if lead is in the same dapertment with user. 
-router.route("/:id").get(isAdminOrLead, read).put(isAdminOrLead,update).delete(isAdminOrLead, remove);
+router.route("/:id").get(isAdminOrLead, read).put(isAdminOrLead, update).delete(isAdminOrLead, remove);
 
 export default router;
