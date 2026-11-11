@@ -10,16 +10,17 @@
 import express from "express";
 import { dbConnection } from "./src/configs/dbConnection";
 import queryHandler from "./src/middlewares/queryHandler";
-import cookieSession from "cookie-session";
 import { env } from "./src/configs/env";
 import errorHandler, { notFound } from "./src/middlewares/errorHandler";
-import departmentRouter from './src/routes/department.route';   
-import personnelRouter from './src/routes/personnel.route';   
+import departmentRouter from './src/routes/department.route';
+import personnelRouter from './src/routes/personnel.route';
 import authRouter from './src/routes/auth.route';
 import tokenRouter from './src/routes/token.route';
 import authentication from "./src/middlewares/authentication";
 import sync from "./src/utils/sync";
 import logger from "./src/middlewares/logger";
+import swaggerUi from 'swagger-ui-express';
+import redoc from 'redoc-express'
 
 const app = express();
 
@@ -38,10 +39,28 @@ app.use(express.json());
 app.use(queryHandler);
 
 // Authentication
-app.use(authentication)
+app.use(authentication);
 
 // Logger
-app.use(logger)
+app.use(logger);
+
+/* ----------------------------------------------------- */
+// DOCUMENTATION:
+// $ npm i swagger-autogen # Json Creator
+// $ npm i swagger-ui-express 
+// $ npm i redoc-express
+// $ npm i -D @types/swagger-ui-express
+
+
+app.use(
+  "/documents/swagger",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }),
+);
+
+// Redoc
+
+app.use('/documents/reddoc', redoc())
 
 /* ----------------------------------------------------- */
 //* Routes
@@ -50,7 +69,11 @@ app.all("/", (req, res) => {
   res.send({
     success: true,
     message: "Welcome to Personnel API Service",
-    session: req.session
+    documnets: {
+      json: 'http://127.0.0.1:8000/documents/json',
+      swagger: 'http://127.0.0.1:8000/documents/swagger',
+      redoc: 'http://127.0.0.1:8000/documents/redoc',
+    }
   });
 });
 
@@ -66,6 +89,7 @@ app.use('/departments', departmentRouter);
 // Personnel route
 app.use('/personnels', personnelRouter);
 
+
 /* ----------------------------------------------------- */
 //* Error Handling 
 
@@ -76,6 +100,6 @@ app.all("/*splat", notFound);
 app.use(errorHandler);
 
 /* ----------------------------------------------------- */
-app.listen(8000, () => console.log("Running on port:8000"));
+app.listen(env.PORT, () => console.log("Running on port:8000"));
 //! Seed data
 // sync()
