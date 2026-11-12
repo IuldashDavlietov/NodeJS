@@ -5,7 +5,7 @@ const isLogin: RequestHandler = (req, res, next) => {
   if (req.user && req.user.isActive) {
     next();
   } else {
-    res.errorStatusCode = 403;
+    res.statusCode = 403;
     throw new CustomError("NoPermission: You must login.", 403);
   }
 };

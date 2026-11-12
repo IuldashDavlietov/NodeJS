@@ -1,6 +1,4 @@
-/* -------------------------------------------------------
-	EXPRESS - Personnel API
-------------------------------------------------------- */
+
 import dotenv from "dotenv";
 import swaggerAutogen from "swagger-autogen";
 import packageJson from "./package.json";
@@ -9,7 +7,7 @@ dotenv.config({ quiet: true });
 
 const HOST = process.env.HOST ?? "127.0.0.1";
 const PORT = process.env.PORT ?? 8000;
-/* ------------------------------------------------------- */
+
 
 const document = {
   info: {

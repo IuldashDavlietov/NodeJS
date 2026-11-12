@@ -1,12 +1,12 @@
 
 import { Router } from "express";
-import authRouter from "./auth";
-import userRouter from "./user";
-import tokenRouter from "./token";
-import orderRouter from "./order";
-import pizzaRouter from "./pizza";
-import toppingRouter from "./topping";
-import documentRouter from "./document";
+import authRouter from "./auth.route";
+import userRouter from "./user.route";
+import tokenRouter from "./token.route";
+import orderRouter from "./order.route";
+import pizzaRouter from "./pizza.route";
+import toppingRouter from "./topping.route";
+import documentRouter from "./document.route";
 
 const router = Router();
 // ROUTER INDEX:

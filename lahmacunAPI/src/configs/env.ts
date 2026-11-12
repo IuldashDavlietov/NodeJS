@@ -17,4 +17,5 @@ export const env = {
   PASS_ITERATION: Number(requireEnv("PASS_ITERATION")),
   PASS_KEYLEN: Number(requireEnv("PASS_KEYLEN")),
   PASS_DIGEST: requireEnv("PASS_DIGEST"),
+  PAGE_SIZE: Number(process.env.PAGE_SIZE) || 20
 };

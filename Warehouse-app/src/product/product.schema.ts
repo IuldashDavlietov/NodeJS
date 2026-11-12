@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 export const CreateProductSchema = z.object({
     name: z.string().min(1),
-    sku: z.string(),
-    barcode: z.string(),
+    sku: z.string().min(1),
+    barcode: z.string().min(1),
     weight: z.number().positive(),
     dimensions: z.object({
         length: z.number().positive('Length must be positive'),

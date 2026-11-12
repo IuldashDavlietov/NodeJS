@@ -14,7 +14,7 @@ const toSortOrder = (value: unknown): SortOrder | undefined => {
     case "asc":
     case "ascending":
     case "1":
-      return 1;
+    return 1;
     case "desc":
     case "descending":
     case "-1":
@@ -83,8 +83,8 @@ const queryHandler: RequestHandler = (req, res, next) => {
     customFilter: QueryFilter<T> = {},
   ): Promise<ListDetails> => {
     const conditions: QueryFilter<T> = { ...filter, ...search, ...customFilter };
-    const data = await Model.find(conditions);
-    const total = Math.ceil(data.length / limit);
+    const totalRecords = await Model.countDocuments(conditions);
+    const total = Math.ceil(totalRecords / limit);
 
     return {
       filter,
@@ -93,16 +93,16 @@ const queryHandler: RequestHandler = (req, res, next) => {
       skip,
       limit,
       page,
-      totalRecords: data.length,
+      totalRecords,
       pages:
-        data.length <= limit
+       totalRecords <= limit
           ? false
           : {
-              previous: page > 0 ? page : false,
-              current: page + 1,
-              next: page + 2 > total ? false : page + 2,
-              total,
-            },
+            previous: page > 0 ? page : false,
+            current: page + 1,
+            next: page + 2 > total ? false : page + 2,
+            total,
+          },
     };
   };
 
