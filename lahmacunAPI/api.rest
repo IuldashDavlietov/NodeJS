@@ -1,0 +1,180 @@
+@baseUrl = http://127.0.0.1:8000
+@adminToken = Token {{Adminlogin.response.body.token}}
+@leadToken = Token {{Leadlogin.response.body.token}}
+@userToken = Token {{login.response.body.token}}
+
+# @name home
+GET {{baseUrl}}
+
+#####################
+### AUTH
+#####################
+
+# @name Adminlogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin-fullstack",
+    "password": "1234"
+}
+
+###
+
+# @name Leadlogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "lead-fullstack",
+    "password": "1234"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "test-1",
+    "password": "pass-123"
+}
+
+###
+
+# @name logout
+POST {{baseUrl}}/auth/logout
+Authorization: Token 50be4f594d54fde8affebefeb7fad05a033bb955cbc989c57b3bc0cf26a2be00
+
+
+
+#####################
+### User
+#####################
+
+# @name user_list
+GET {{baseUrl}}/tokens
+Authorization: {{leadToken}}
+
+###
+
+# @name user_read
+GET {{baseUrl}}/users/6aed96a1455dde3ab5b7313e
+Authorization: {{userToken}}
+
+###
+
+# @name user_create
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "username":"test-1",
+    "password":"pass-123",
+    "email":"test1@site.com"
+}
+
+###
+
+# @name user_update
+PUT {{baseUrl}}/users/6aed96a1455dde3ab5b7313e
+Content-Type: application/json
+
+{
+    "name":"userartment 1 UPDATED"
+}
+
+###
+
+# @name user_delete
+DELETE {{baseUrl}}/users/6aed96a1455dde3ab5b7313e
+
+#####################
+### PERSONNEL
+#####################
+
+# @name per_list
+GET {{baseUrl}}/personnels
+Authorization: {{leadToken}}
+
+###
+
+# @name per_read
+GET {{baseUrl}}/personnels/6aeda41f5ce0b8f8855e2f04
+Authorization: {{leadToken}}
+
+###
+
+# @name per_create
+POST {{baseUrl}}/personnels
+Content-Type: application/json
+
+{
+    "departmentId":"6af1a3865cea01b22e8a8f00",
+    "username": "lead-fullstack",
+    "password": "1234",
+    "firstName": "firstname",
+    "lastName": "lastname",
+    "phone": "F1123456789",
+    "email": "lead@site.com",
+    "title": "lead-title",
+    "salary": 5000,
+    "description": "lead-desc",
+    "isLead": true
+}
+
+###
+
+# @name per_update
+PUT {{baseUrl}}/personnels/6af1a435aea441faf044c950
+Content-Type: application/json
+
+{
+    "isAdmin": true
+}
+
+###
+
+# @name per_delete
+DELETE {{baseUrl}}/personnels/6aed96a1455dde3ab5b7313e
+
+#####################
+### TOKEN
+#####################
+
+
+# @name token_list
+GET {{baseUrl}}/tokens
+Authorization: {{adminToken}}
+
+###
+
+# @name token_read
+GET {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1
+
+###
+
+# @name token_create
+POST {{baseUrl}}/tokens
+Content-Type: application/json
+
+{
+    "userId":"6af18b91fdc98109e3f455d0",
+    "token": "aflasdf904u32fkjdshgaduiryfsdjkgvlad"
+}
+
+###
+
+# @name token_update
+PUT {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1
+Content-Type: application/json
+
+{
+    "isActive": true
+}
+
+###
+
+# @name token_delete
+DELETE {{baseUrl}}/tokens/6af18bbdfdc98109e3f455d1

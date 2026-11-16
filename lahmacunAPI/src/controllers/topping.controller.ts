@@ -56,4 +56,4 @@ const remove: RequestHandler<IdParams> = async (req, res) => {
     res.sendStatus(204);
 };
 
-export default { list, read, create, update, remove };
+export  { list, read, create, update, remove };

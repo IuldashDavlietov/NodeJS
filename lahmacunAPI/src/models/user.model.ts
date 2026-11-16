@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema<IUser>({
         type: String,
         trim: true,
         required: true,
-        set: passwordEncrypte
+        set: passwordEncrypte,
     },
 
     email: {

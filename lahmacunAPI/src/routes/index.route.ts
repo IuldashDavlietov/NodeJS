@@ -2,7 +2,6 @@
 import { Router } from "express";
 import authRouter from "./auth.route";
 import userRouter from "./user.route";
-import tokenRouter from "./token.route";
 import orderRouter from "./order.route";
 import pizzaRouter from "./pizza.route";
 import toppingRouter from "./topping.route";
@@ -18,9 +17,6 @@ router.use("/auth", authRouter);
 
 // user:
 router.use("/users", userRouter);
-
-// token:
-router.use("/tokens", tokenRouter);
 
 // order:
 router.use("/orders", orderRouter);

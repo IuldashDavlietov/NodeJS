@@ -7,7 +7,7 @@
 import express from "express";
 import { env } from "./src/configs/env";
 import { dbConnection } from "./src/configs/dbConnection";
-// import authentication from "./src/middlewares/authentication";
+import authentication from "./src/middlewares/authentication.middleware";
 import errorHandler, { notFound } from "./src/middlewares/errorHandler.middleware";
 import logger from "./src/middlewares/logger.middleware";
 import queryHandler from "./src/middlewares/queryHandler.middleware";
@@ -16,31 +16,21 @@ import router from "./src/routes/index.route";
 
 const app = express();
 
-// Accept JSON:
+//* Parsers & Settings:
 app.use(express.json());
-// Nested Query
-
 app.set("query parser", "extended");
 
-// DB Connection:
+//*  DB Connection:
 dbConnection();
 
-//* Middlewares:
+// Authentication (uncomment after implementing JWT):
+app.use(authentication);
 
-
-// Auhentication:
-// app.use(authentication);
-
-// Query Handler
 app.use(queryHandler);
-
-// Logger:
 app.use(logger);
 
-
-//* Routes:
-
-// HomePath
+//*  Routes:
+// Root welcome & healthcheck endpoint:
 app.all("/", (req, res) => {
   res.send({
     error: false,
@@ -54,20 +44,15 @@ app.all("/", (req, res) => {
   });
 });
 
-// Other path
+// Centralized application router:
 app.use("/", router);
 
-//* Error Handling:
-
-// Not found handler
+//*  Error Handling (must stay strictly BELOW all routes):
 app.all("/*splat", notFound);
-// Error handler
 app.use(errorHandler);
 
-
-// RUN SERVER:
+//*  Run Server:
 app.listen(env.PORT, () => console.log("http://127.0.0.1:" + env.PORT));
 
-
-//! Syncronization (must be in commentLine):
+//! Synchronization (keep commented in normal runs):
 // sync();

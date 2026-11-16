@@ -10,4 +10,13 @@ const isLogin: RequestHandler = (req, res, next) => {
   }
 };
 
-export default { isLogin };
+
+const isAdmin: RequestHandler = (req, res, next) => {
+  if (req.user && req.user.isActive && req.user.isAdmin) {
+    next();
+  } else {
+    throw new CustomError("NoPermission: You must login and to be Admin.", 403);
+  }
+};
+
+export { isLogin,isAdmin};

@@ -14,6 +14,8 @@ export const env = {
   PORT: Number(process.env.PORT ?? 8000),
   MONGODB: requireEnv("MONGODB"),
   SECRET_KEY: requireEnv("SECRET_KEY"),
+  ACCESS_KEY: requireEnv("ACCESS_KEY"),
+  REFRESH_KEY: requireEnv("REFRESH_KEY"),
   PASS_ITERATION: Number(requireEnv("PASS_ITERATION")),
   PASS_KEYLEN: Number(requireEnv("PASS_KEYLEN")),
   PASS_DIGEST: requireEnv("PASS_DIGEST"),

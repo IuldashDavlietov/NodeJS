@@ -6,7 +6,7 @@ declare global {
   namespace Express {
     interface Request {
       // Change this to UserDocument after the user model is written.
-      user?: { isActive: boolean } | null;
+      user?: AccessData | null;
     }
 
     interface Response {
