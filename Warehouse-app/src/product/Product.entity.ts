@@ -1,19 +1,20 @@
+import { AppError } from "../shared/errors/app.error.js"
+
 export interface Dimensions {
     length: number,
     width: number,
     height: number
 }
 
-export class InvalidWeight extends Error {
+export class InvalidWeight extends AppError {
     constructor() {
-        super('Product weight must be positive number')
+        super('Product weight must be positive number', 400)
         this.name = 'InvalidWeight'
     }
 }
-
-export class InvalidDimension extends Error {
+export class InvalidDimension extends AppError {
     constructor() {
-        super('Product dimension must be positive number')
+        super('Product dimension must be positive number', 400)
         this.name = 'InvalidDimension'
     }
 }

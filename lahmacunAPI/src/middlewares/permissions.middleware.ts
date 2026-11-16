@@ -10,7 +10,6 @@ const isLogin: RequestHandler = (req, res, next) => {
   }
 };
 
-
 const isAdmin: RequestHandler = (req, res, next) => {
   if (req.user && req.user.isActive && req.user.isAdmin) {
     next();
