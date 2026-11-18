@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx src/server.ts",
+    "dev": "tsx --env-file=.env src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -22,7 +22,9 @@
   "packageManager": "pnpm@12.16.1",
   "type": "module",
   "dependencies": {
+    "@types/pg": "^8.23.1",
     "express": "^5.3.0",
+    "pg": "^8.23.1",
     "pino": "^10.4.0",
     "pino-http": "^11.0.0",
     "zod": "^4.6.7"
