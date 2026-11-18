@@ -18,7 +18,7 @@ interface LoginBody {
 const login: RequestHandler<{}, any, LoginBody> = async (req, res) => {
     const { username, email, password } = req.body;
 
-    if (!(username || email) && password)
+    if (!(username || email) && !password)
         throw new CustomError("Username or email and password are required", 400);
 
     // findOne makes set method works

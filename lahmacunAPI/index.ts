@@ -12,6 +12,7 @@ import errorHandler, { notFound } from "./src/middlewares/errorHandler.middlewar
 import logger from "./src/middlewares/logger.middleware";
 import queryHandler from "./src/middlewares/queryHandler.middleware";
 import router from "./src/routes/index.route";
+import nodemailer from "nodemailer";
 // import sync from "./src/helpers/sync";
 
 const app = express();
@@ -23,11 +24,13 @@ app.set("query parser", "extended");
 //*  DB Connection:
 dbConnection();
 
-// Authentication (uncomment after implementing JWT):
+// Authentication :
 app.use(authentication);
 
+// Globak middlewares
 app.use(queryHandler);
 app.use(logger);
+
 
 //*  Routes:
 // Root welcome & healthcheck endpoint:
@@ -47,7 +50,7 @@ app.all("/", (req, res) => {
 // Centralized application router:
 app.use("/", router);
 
-//*  Error Handling (must stay strictly BELOW all routes):
+//*  Error Handling:
 app.all("/*splat", notFound);
 app.use(errorHandler);
 

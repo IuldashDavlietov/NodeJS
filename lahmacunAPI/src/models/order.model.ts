@@ -15,7 +15,7 @@ export interface IOrder {
     updatedAt: Date
 }
 
-export type OrderBody = Pick<IOrder, 'size'> & Partial<Pick<IOrder, 'quantity' | 'price'>> & { userID: string, pizzaId: string }
+export type OrderBody = Pick<IOrder, 'size'> & Partial<Pick<IOrder, 'quantity' | 'price'>> & { userId?: string, pizzaId: string }
 export type OrderDocument = HydratedDocument<IOrder>
 
 const orderSchema = new mongoose.Schema<IOrder>({
@@ -41,7 +41,12 @@ const orderSchema = new mongoose.Schema<IOrder>({
 
     quantity: {
         type: Number,
-        default: 1
+        default: 1,
+        min: [1, 'Quantity must be at least 1'],
+        validate: {
+            validator: Number.isInteger,
+            message: 'Quantity must be an integer',
+        },
     },
 
     price: {
@@ -51,15 +56,16 @@ const orderSchema = new mongoose.Schema<IOrder>({
 
     amount: {
         type: Number,
-        default: function (this: IOrder) {
-            return this.quantity * this.price
-        },
-        transform: function (this: IOrder) {
-            return this.quantity * this.price
-        },
+       required: true
     },
 },
 
     { collection: 'orders', timestamps: true });
+
+    orderSchema.pre('validate', function () {
+    if (this.quantity != null && this.price != null) {
+        this.amount = this.quantity * this.price;
+    }
+});
 
 export default mongoose.model<IOrder>("Order", orderSchema);

@@ -3,6 +3,7 @@ import { mongoose } from "../configs/dbConnection";
 import Order, { OrderBody, OrderDocument } from "../models/order.model";
 import { CustomError } from "../utils";
 import type { IdParams, ListResponse, ResultResponse } from "../types/api";
+import Pizza from '../models/pizza.model'
 
 const list: RequestHandler<{}, ListResponse<OrderDocument>> = async (req, res) => {
     const customFilter = req.user?.isAdmin ? {} : { userID: req.user?._id };
@@ -36,12 +37,18 @@ const read: RequestHandler<IdParams, ResultResponse<OrderDocument>> = async (req
 };
 
 const create: RequestHandler<{}, ResultResponse<OrderDocument>, OrderBody> = async (req, res) => {
-    const orderPayload: OrderBody = req.user?.isAdmin
-        ? req.body
-        : { ...req.body, userID: req.user!._id };
+
+    const pizzaId = req.body.pizzaId;
+    const pizza = await Pizza.findById(pizzaId).lean();
+    if (!pizza) throw new CustomError("Pizza you look for is not found", 404);
+
+  const orderPayload: OrderBody = {
+    ...req.body,
+    price: pizza.price,
+    userId: req.user?.isAdmin && req.body.userId ? req.body.userId : req.user!._id
+  }
 
     const result = await Order.create(orderPayload);
-
     res.status(201).send({
         success: true,
         result,

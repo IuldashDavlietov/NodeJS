@@ -4,7 +4,7 @@ import { CustomError } from "../utils";
 import type { IdParams, ListResponse, ResultResponse } from "../types/api";
 
 const list: RequestHandler<{}, ListResponse<PizzaDocument>> = async (req, res) => {
-    const result = await res.getModelList(Pizza);
+    const result = await res.getModelList(Pizza, {}, 'toppingIds');
 
     res.status(200).send({
         success: true,
@@ -14,7 +14,7 @@ const list: RequestHandler<{}, ListResponse<PizzaDocument>> = async (req, res) =
 };
 
 const read: RequestHandler<IdParams, ResultResponse<PizzaDocument>> = async (req, res) => {
-    const result = await Pizza.findById(req.params.id);
+    const result = await Pizza.findById(req.params.id).populate('toppingIds');
 
     if (!result) throw new CustomError("Pizza is not found", 404);
 

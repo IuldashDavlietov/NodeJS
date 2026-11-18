@@ -35,10 +35,23 @@ const read: RequestHandler<IdParams, ResultResponse<UserDocument>> = async (req,
 };
 
 const create: RequestHandler<{}, ResultResponse<UserDocument>, UserBody> = async (req, res) => {
-    // Prevent privilege escalation: only existing admins can set isAdmin
-    const userPayload: UserBody = req.user?.isAdmin
-        ? req.body
-        : { ...req.body, isAdmin: false };
+    const { username, email, password } = req.body;
+
+    // 1. Валидируем сырой пароль до того, как Mongoose пропустит его через сеттер шифрования
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    if (!password || !passwordRegex.test(password)) {
+        throw new CustomError(
+            "Password must be at least 8 chars long, contain one uppercase letter and one special char",
+            400
+        );
+    }
+
+    const userPayload: UserBody = {
+        username,
+        email,
+        password,
+        isAdmin: req.user?.isAdmin ? Boolean(req.body.isAdmin) : false,
+    };
 
     const result = await User.create(userPayload);
 
